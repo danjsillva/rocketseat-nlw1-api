@@ -1,66 +1,85 @@
 import { Context } from 'koa'
-import { getRepository } from "typeorm";
 
-import { Items } from '../database/entity/Items'
+import ItemsService from '../services/ItemsService'
 
 const index = async function(ctx: Context) {
-    try {
-        const ItemsRepository = getRepository(Items)
-        const items = await ItemsRepository.find()
+    const items = await ItemsService.index()
 
-        ctx.body = items
-    } catch (error) {
-        throw error
-    }
+    ctx.body = items
 }
 
 const find = async function(ctx: Context) {
-    try {
-        const ItemsRepository = getRepository(Items)
-        const { id } = ctx.params
-        const items = await ItemsRepository.findOneOrFail(id)
-
-        ctx.body = items
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const item = await ItemsService.find(id)
+
+    ctx.body = item
 }
 
 const store = async function(ctx: Context) {
-    try {
-        const ItemsRepository = getRepository(Items)
-        const data = ctx.request.body
-        const item = await ItemsRepository.save(data)
+    const data = ctx.request.body
 
-        ctx.body = item
-    } catch (error) {
-        throw error
+    if (!data) {
+        throw {
+            status: 400,
+            code: "*_REQUIRED",
+            message: "* é orbigatório"
+        }
     }
+
+    const item = await ItemsService.store(data)
+
+    ctx.body = item
 }
 
 const update = async function(ctx: Context) {
-    try {
-        const ItemsRepository = getRepository(Items)
-        const { id } = ctx.params
-        const data = ctx.request.body
-        await ItemsRepository.update(id, data)
-
-        ctx.body = true
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const data = ctx.request.body
+
+    if (!data) {
+        throw {
+            status: 400,
+            code: "*_REQUIRED",
+            message: "* é orbigatório"
+        }
+    }
+
+    const item = await ItemsService.update(id, data)
+
+    ctx.body = item
 }
 
 const remove = async function(ctx: Context) {
-    try {
-        const ItemsRepository = getRepository(Items)
-        const { id } = ctx.params
-        await ItemsRepository.delete(id)
-
-        ctx.body = true
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const item = await ItemsService.remove(id)
+
+    ctx.body = item
 }
 
 export default { index, find, store, update, remove }

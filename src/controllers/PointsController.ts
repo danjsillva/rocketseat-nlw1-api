@@ -1,67 +1,85 @@
 import { Context } from 'koa'
-import { getRepository } from "typeorm";
 
-import { Points } from '../database/entity/Points'
+import PointsService from '../services/PointsService'
 
 const index = async function(ctx: Context) {
-    try {
-        const PointsRepository = getRepository(Points)
-        const points = await PointsRepository.find()
+    const points = await PointsService.index()
 
-        ctx.body = points
-    } catch (error) {
-        throw error
-    }
+    ctx.body = points
 }
 
 const find = async function(ctx: Context) {
-    try {
-        const PointsRepository = getRepository(Points)
-        const { id } = ctx.params
-        const point = await PointsRepository.findOneOrFail(id)
-
-        ctx.body = point
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const point = await PointsService.find(id)
+
+    ctx.body = point
 }
 
 const store = async function(ctx: Context) {
-    try {
-        const PointsRepository = getRepository(Points)
-        const data = ctx.request.body
-        const point = await PointsRepository.save(data)
+    const data = ctx.request.body
 
-        ctx.body = point
-    } catch (error) {
-        throw error
+    if (!data) {
+        throw {
+            status: 400,
+            code: "*_REQUIRED",
+            message: "* é orbigatório"
+        }
     }
+
+    const point = await PointsService.store(data)
+
+    ctx.body = point
 }
 
 const update = async function(ctx: Context) {
-    try {
-        const PointsRepository = getRepository(Points)
-        const { id } = ctx.params
-        const data = ctx.request.body
-
-        await PointsRepository.update(id, data)
-
-        ctx.body = true
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const data = ctx.request.body
+
+    if (!data) {
+        throw {
+            status: 400,
+            code: "*_REQUIRED",
+            message: "* é orbigatório"
+        }
+    }
+
+    const point = await PointsService.update(id, data)
+
+    ctx.body = point
 }
 
 const remove = async function(ctx: Context) {
-    try {
-        const PointsRepository = getRepository(Points)
-        const { id } = ctx.params
-        await PointsRepository.delete(id)
-
-        ctx.body = true
-    } catch (error) {
-        throw error
+    const { id } = ctx.params
+    
+    if (!id) {
+        throw {
+            status: 400,
+            code: "ID_REQUIRED",
+            message: "ID é orbigatório"
+        }
     }
+
+    const point = await PointsService.remove(id)
+
+    ctx.body = point
 }
 
 export default { index, find, store, update, remove }
