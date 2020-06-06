@@ -1,0 +1,6 @@
+{
+    "type": "sqlite",
+    "database": "src/database/nlw1.sqlite",
+    "migrations": ["src/database/migrations/*.ts"],
+    "entities": ["src/database/entity/*.ts"]
+}
