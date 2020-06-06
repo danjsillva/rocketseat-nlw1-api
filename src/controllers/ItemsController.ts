@@ -10,9 +10,7 @@ const index = async function(ctx: Context) {
 
         ctx.body = items
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -24,9 +22,7 @@ const find = async function(ctx: Context) {
 
         ctx.body = items
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -38,9 +34,7 @@ const store = async function(ctx: Context) {
 
         ctx.body = item
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -53,9 +47,7 @@ const update = async function(ctx: Context) {
 
         ctx.body = true
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -67,9 +59,7 @@ const remove = async function(ctx: Context) {
 
         ctx.body = true
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 

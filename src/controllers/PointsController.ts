@@ -10,9 +10,7 @@ const index = async function(ctx: Context) {
 
         ctx.body = points
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -20,13 +18,11 @@ const find = async function(ctx: Context) {
     try {
         const PointsRepository = getRepository(Points)
         const { id } = ctx.params
-        const points = await PointsRepository.findOneOrFail(id)
+        const point = await PointsRepository.findOneOrFail(id)
 
-        ctx.body = points
+        ctx.body = point
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -38,9 +34,7 @@ const store = async function(ctx: Context) {
 
         ctx.body = point
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -49,13 +43,12 @@ const update = async function(ctx: Context) {
         const PointsRepository = getRepository(Points)
         const { id } = ctx.params
         const data = ctx.request.body
+
         await PointsRepository.update(id, data)
 
         ctx.body = true
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
@@ -67,9 +60,7 @@ const remove = async function(ctx: Context) {
 
         ctx.body = true
     } catch (error) {
-        console.error
-
-        ctx.body = error
+        throw error
     }
 }
 
