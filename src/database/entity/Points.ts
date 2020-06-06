@@ -9,6 +9,12 @@ export class Points {
     name: string;
 
     @Column()
+    email: string;
+
+    @Column()
+    whatsapp: string;
+
+    @Column()
     uf: string;
 
     @Column()
@@ -19,4 +25,7 @@ export class Points {
 
     @Column()
     lon: string;
+
+    @Column()
+    items_ids: string;
 }

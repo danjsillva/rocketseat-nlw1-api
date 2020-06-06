@@ -17,6 +17,14 @@ export class PointsCreateTable1591461020009 implements MigrationInterface {
                     type: "varchar",
                 },
                 {
+                    name: "email",
+                    type: "varchar",
+                },
+                {
+                    name: "whatsapp",
+                    type: "varchar",
+                },
+                {
                     name: "uf",
                     type: "varchar",
                 },
@@ -31,7 +39,11 @@ export class PointsCreateTable1591461020009 implements MigrationInterface {
                 {
                     name: "lon",
                     type: "varchar",
-                }
+                },
+                {
+                    name: "items_ids",
+                    type: "varchar",
+                },
             ]
         }), true)
     }
