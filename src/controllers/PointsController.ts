@@ -31,8 +31,8 @@ const create = async function(ctx: Context) {
     if (!data) {
         throw {
             status: 400,
-            code: "*_REQUIRED",
-            message: "* é orbigatório"
+            code: "ALL_FIELDS_REQUIRED",
+            message: "Todos os campos são orbigatórios"
         }
     }
 
@@ -57,8 +57,8 @@ const update = async function(ctx: Context) {
     if (!data) {
         throw {
             status: 400,
-            code: "*_REQUIRED",
-            message: "* é orbigatório"
+            code: "ALL_FIELDS_REQUIRED",
+            message: "Todos os campos são orbigatórios"
         }
     }
 
