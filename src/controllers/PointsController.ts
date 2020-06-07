@@ -3,12 +3,13 @@ import { Context } from 'koa'
 import PointsService from '../services/PointsService'
 
 const index = async function(ctx: Context) {
-    const points = await PointsService.index()
+    const { city, uf, items_ids } = ctx.request.query
+    const points = await PointsService.index(city, uf, items_ids)
 
     ctx.body = points
 }
 
-const find = async function(ctx: Context) {
+const show = async function(ctx: Context) {
     const { id } = ctx.params
     
     if (!id) {
@@ -19,12 +20,12 @@ const find = async function(ctx: Context) {
         }
     }
 
-    const point = await PointsService.find(id)
+    const point = await PointsService.show(id)
 
     ctx.body = point
 }
 
-const store = async function(ctx: Context) {
+const create = async function(ctx: Context) {
     const data = ctx.request.body
 
     if (!data) {
@@ -35,7 +36,7 @@ const store = async function(ctx: Context) {
         }
     }
 
-    const point = await PointsService.store(data)
+    const point = await PointsService.create(data)
 
     ctx.body = point
 }
@@ -66,7 +67,7 @@ const update = async function(ctx: Context) {
     ctx.body = point
 }
 
-const remove = async function(ctx: Context) {
+const destroy = async function(ctx: Context) {
     const { id } = ctx.params
     
     if (!id) {
@@ -77,9 +78,9 @@ const remove = async function(ctx: Context) {
         }
     }
 
-    const point = await PointsService.remove(id)
+    const point = await PointsService.destroy(id)
 
     ctx.body = point
 }
 
-export default { index, find, store, update, remove }
+export default { index, show, create, update, destroy }

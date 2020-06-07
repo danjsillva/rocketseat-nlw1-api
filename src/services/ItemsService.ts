@@ -13,7 +13,7 @@ const index = async function() {
     }
 }
 
-const find = async function(id: number) {
+const show = async function(id: number) {
     try {
         const ItemsRepository = getRepository(Items)
         const item = await ItemsRepository.findOneOrFail(id)
@@ -24,7 +24,7 @@ const find = async function(id: number) {
     }
 }
 
-const store = async function(data: any) {
+const create = async function(data: any) {
     try {
         const ItemsRepository = getRepository(Items)
         const item = await ItemsRepository.save(data)
@@ -47,7 +47,7 @@ const update = async function(id: number, data: any) {
     }
 }
 
-const remove = async function(id: number) {
+const destroy = async function(id: number) {
     try {
         const ItemsRepository = getRepository(Items)
         await ItemsRepository.delete(id)
@@ -58,4 +58,4 @@ const remove = async function(id: number) {
     }
 }
 
-export default { index, find, store, update, remove }
+export default { index, show, create, update, destroy }

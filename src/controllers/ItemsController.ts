@@ -8,7 +8,7 @@ const index = async function(ctx: Context) {
     ctx.body = items
 }
 
-const find = async function(ctx: Context) {
+const show = async function(ctx: Context) {
     const { id } = ctx.params
     
     if (!id) {
@@ -19,12 +19,12 @@ const find = async function(ctx: Context) {
         }
     }
 
-    const item = await ItemsService.find(id)
+    const item = await ItemsService.show(id)
 
     ctx.body = item
 }
 
-const store = async function(ctx: Context) {
+const create = async function(ctx: Context) {
     const data = ctx.request.body
 
     if (!data) {
@@ -35,7 +35,7 @@ const store = async function(ctx: Context) {
         }
     }
 
-    const item = await ItemsService.store(data)
+    const item = await ItemsService.create(data)
 
     ctx.body = item
 }
@@ -66,7 +66,7 @@ const update = async function(ctx: Context) {
     ctx.body = item
 }
 
-const remove = async function(ctx: Context) {
+const destroy = async function(ctx: Context) {
     const { id } = ctx.params
     
     if (!id) {
@@ -77,9 +77,9 @@ const remove = async function(ctx: Context) {
         }
     }
 
-    const item = await ItemsService.remove(id)
+    const item = await ItemsService.destroy(id)
 
     ctx.body = item
 }
 
-export default { index, find, store, update, remove }
+export default { index, show, create, update, destroy }

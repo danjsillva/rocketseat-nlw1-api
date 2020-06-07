@@ -10,15 +10,15 @@ router.get('/', ctx => {
 })
 
 router.get('/points', PointsController.index)
-router.get('/points/:id', PointsController.find)
-router.post('/points', PointsController.store)
+router.get('/points/:id', PointsController.show)
+router.post('/points', PointsController.create)
 router.put('/points/:id', PointsController.update)
-router.delete('/points/:id', PointsController.remove)
+router.delete('/points/:id', PointsController.destroy)
 
 router.get('/items', ItemsController.index)
-router.get('/items/:id', ItemsController.find)
-router.post('/items', ItemsController.store)
+router.get('/items/:id', ItemsController.show)
+router.post('/items', ItemsController.create)
 router.put('/items/:id', ItemsController.update)
-router.delete('/items/:id', ItemsController.remove)
+router.delete('/items/:id', ItemsController.destroy)
 
 export default router.routes()

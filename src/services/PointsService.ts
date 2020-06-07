@@ -1,11 +1,28 @@
-import { getRepository } from "typeorm"
+import { getRepository, Like, In } from "typeorm"
 
 import { Points } from '../database/entity/Points'
 
-const index = async function() {
+const index = async function(city: string, uf: string, items_ids: string) {
     try {
         const PointsRepository = getRepository(Points)
-        const points = await PointsRepository.find()
+        const points = await PointsRepository.find({
+            where: (qb: any) => {
+                if (city) {
+                    qb.where({ city: Like(`%${city}%`) })
+                }
+
+                if (uf) {
+                    qb.where({ uf: Like(`%${uf}%`) })
+                }
+
+                if (items_ids) {
+                    for (const id of items_ids.split(',')) {
+                        qb.where({ items_ids: Like(`%${id}%`) })
+                    }
+                }
+            }
+            
+        })
 
         return points
     } catch (error) {
@@ -13,7 +30,7 @@ const index = async function() {
     }
 }
 
-const find = async function(id: number) {
+const show = async function(id: number) {
     try {
         const PointsRepository = getRepository(Points)
         const point = await PointsRepository.findOneOrFail(id)
@@ -24,7 +41,7 @@ const find = async function(id: number) {
     }
 }
 
-const store = async function(data: any) {
+const create = async function(data: any) {
     try {
         const PointsRepository = getRepository(Points)
         const point = await PointsRepository.save(data)
@@ -47,7 +64,7 @@ const update = async function(id: number, data: any) {
     }
 }
 
-const remove = async function(id: number) {
+const destroy = async function(id: number) {
     try {
         const PointsRepository = getRepository(Points)
         await PointsRepository.delete(id)
@@ -58,4 +75,4 @@ const remove = async function(id: number) {
     }
 }
 
-export default { index, find, store, update, remove }
+export default { index, show, create, update, destroy }
