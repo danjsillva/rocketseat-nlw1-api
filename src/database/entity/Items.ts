@@ -9,5 +9,5 @@ export class Items {
     name: string;
 
     @Column()
-    image: string;
+    image_url: string;
 }

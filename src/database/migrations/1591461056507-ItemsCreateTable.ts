@@ -17,7 +17,7 @@ export class ItemsCreateTable1591461056507 implements MigrationInterface {
                     type: "varchar",
                 },
                 {
-                    name: "image",
+                    name: "image_url",
                     type: "varchar",
                 }
             ]
