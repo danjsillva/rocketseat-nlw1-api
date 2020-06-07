@@ -17,6 +17,10 @@ export class PointsCreateTable1591461020009 implements MigrationInterface {
                     type: "varchar",
                 },
                 {
+                    name: "image_url",
+                    type: "varchar",
+                },
+                {
                     name: "email",
                     type: "varchar",
                 },

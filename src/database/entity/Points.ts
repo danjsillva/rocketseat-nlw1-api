@@ -9,6 +9,9 @@ export class Points {
     name: string;
 
     @Column()
+    image_url: string;
+
+    @Column()
     email: string;
 
     @Column()
