@@ -6,7 +6,11 @@ This is my project version of Next Level Week by [Rocketseat](https://rocketseat
 
 Instead of Express and Knex like the original proposal, **this version uses Koa and TypeORM**, but follows the same requirements.
 
-> Before run dev server you need install dependencies and create database.
+You need:
+- Node (v12 is recommended)
+- NPM/Yarn
+
+Before run dev server you need install dependencies and create database.
 
 ```
 yarn
